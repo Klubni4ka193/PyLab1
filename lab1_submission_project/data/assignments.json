@@ -1,0 +1,8 @@
+{
+  "lab-1": {
+    "allowed_templates": [
+      "# TODO: implement",
+      "def main():"
+    ]
+  }
+}

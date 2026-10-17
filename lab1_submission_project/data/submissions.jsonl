@@ -1,0 +1,2 @@
+{"submission_id":"sub-001","student_id":"student-001","assignment_id":"lab-1","submitted_at":"2026-10-17T09:30:00+03:00","text":"Решение задачи\nВторая строка","code":"print('hello')","ai_declaration":{"used":false,"details":""}}
+{"submission_id":"sub-002","student_id":"student-002","assignment_id":"lab-1","submitted_at":"2026-10-17T10:00:00+03:00","text":"Пример текста","code":"def main():\n    pass","ai_declaration":{"used":true,"details":"Использован ИИ для проверки формулировок"}}
