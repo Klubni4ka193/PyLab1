@@ -15,24 +15,26 @@ def main() -> None:
     args = parser.parse_args()
 
     assignments = json.loads(Path(args.assignments).read_text(encoding="utf-8"))
-    source = JsonlSubmissionSource(args.submissions)
     registry = AnalyzerRegistry()
     registry.register("length", LengthAnalyzer)
     registry.register("template", TemplateAnalyzer)
     service = AnalysisService(registry)
 
     reports = []
-    for submission in source.load():
-        assignment = assignments.get(submission.assignment_id, {})
-        context = BasicContext(
-            assignment_id=submission.assignment_id,
-            allowed_templates=assignment.get("allowed_templates", []),
-        )
-        for analyzer_id in ("length", "template"):
-            reports.append({
-                "submission_id": submission.submission_id,
-                "report": asdict(service.analyze(analyzer_id, submission, context)),
-            })
+    
+    with JsonlSubmissionSource(args.submissions) as source:
+        for submission in source.load():
+            assignment = assignments.get(submission.assignment_id, {})
+            context = BasicContext(
+                assignment_id=submission.assignment_id,
+                allowed_templates=assignment.get("allowed_templates", []),
+            )
+            for analyzer_id in ("length", "template"):
+                reports.append({
+                    "submission_id": submission.submission_id,
+                    "report": asdict(service.analyze(analyzer_id, submission, context)),
+                })
+                
     print(json.dumps(reports, ensure_ascii=False, indent=2))
 
 
